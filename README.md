@@ -31,7 +31,31 @@ Vì IDBm không có API để lấy thông tin user, nên phần này mình hoà
 Với khoảng 9000 bộ phim, mình crawl được tầm hơn 1 triệu row (movie_id, user_id, rating). Nếu dùng 1 file để crawl toàn bộ, sẽ mất khoảng 43 giờ, nên mình làm nhiều file rồi lấy kết quả kết hợp lại, tuy nhiên trong báo cáo này mình chỉ để 1 file đại diện.
 
 # EDA
-Folder: [main](https://github.com/bathinh001/1712168/tree/main/main)
-File thực hiện: [EDA.ipynb](https://github.com/bathinh001/1712168/blob/main/main/EDA.ipynb)
+Folder: [main](https://github.com/bathinh001/1712168/tree/main/main).
+
+File thực hiện: [EDA.ipynb](https://github.com/bathinh001/1712168/blob/main/main/EDA.ipynb).
 
 Mình sẽ vẽ biểu đồ phân tích một số thông tin về thời lượng phim, rating phim, phân bố genre cũng như top movie của mọi thời đại.
+
+# Main
+Folder: [main](https://github.com/bathinh001/1712168/tree/main/main).
+
+File thực hiện: [main.ipynb](https://github.com/bathinh001/1712168/blob/main/main/main.ipynb)
+
+Prediction đóng một vai trò khá quan trọng trong nhiều Recommendation Systems.
+
+Phần này sẽ là phần chính của đồ án, gồm 3 task prediction:
+
+- Content Based Filtering: predict những bộ phim khác từ một bộ phim dựa trên những thuộc tính của nó như title, đạo diễn, diễn viên, thể loại, overview,... (dùng TF-IDF và CountVectorizer để vectorize, sau đó dùng cosine similarity matrix để dự đoán)
+- Content Based Filtering: predict điểm số mà user có thể muốn cho một phim nào đó (dùng SVD)
+- Collaborative Filtering: predict những bộ phim cho một user dựa trên những users có độ liên quan gần nhau (KNN)
+
+Task predict đầu tiên sẽ phù hợp nếu chúng ta không biết user là ai.
+
+2 task predict sau, bằng sự kết hợp lẫn nhau chọn ra top phim chung, sẽ phù hợp để recommend từ sở thích của user.
+
+## Dự đoán phim dựa vào thuộc tính riêng
+
+Ở bước này, ta thường thấy rằng một bộ phim có sự tương đồng với bộ phim khác nằm ở thể loại, kịch bản, cốt truyện, và thậm chí là diễn viên, đạo diễn.
+
+Thế nên, mình sẽ lấy hết text từ các trường title, overview, genres từ file `movie.csv`, cùng toàn bộ các trường của file `credit.csv`, join hai file bằng `movie_id`
