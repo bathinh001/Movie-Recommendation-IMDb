@@ -59,3 +59,7 @@ Task predict đầu tiên sẽ phù hợp nếu chúng ta không biết user là
 Ở bước này, ta thường thấy rằng một bộ phim có sự tương đồng với bộ phim khác nằm ở thể loại, kịch bản, cốt truyện, và thậm chí là diễn viên, đạo diễn.
 
 Thế nên, mình sẽ lấy hết text từ các trường title, overview, genres từ file `movie.csv`, cùng toàn bộ các trường của file `credit.csv`, join hai file bằng `movie_id`
+
+## Dự đoán preference của user đối với phim từ bảng rating của mỗi user với một số phim
+
+Mình sẽ dùng một kĩ thuật gọi là SVD (Single Value Decomposition), với metric đánh giá là Root Mean Square Error (RMSE). Giá trị của RMSE càng thấp gần về 0 thì performance càng tốt.
