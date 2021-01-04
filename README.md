@@ -60,6 +60,16 @@ Task predict đầu tiên sẽ phù hợp nếu chúng ta không biết user là
 
 Thế nên, mình sẽ lấy hết text từ các trường title, overview, genres từ file `movie.csv`, cùng toàn bộ các trường của file `credit.csv`, join hai file bằng `movie_id`
 
+Mình sẽ dùng TF-IDF để vectorize overview vì những keyword quan trọng của overview sẽ được score cao hơn khi vector, từ đó làm tăng độ đặc biệt cho mỗi nội dung.
+
+Mình sẽ dùng CountVectorizer để vectorize những thông tin về credit, genre bởi vì mình cần những keyword giống nhau nhiều để thể hiện sự tương quan, nó hơi ngược với tư tưởng của TF-IDF và do đó TF-IDF không phù hợp.
+
+Cuối cùng mình concat 2 ma trận vector lại với nhau, từ đó tính cosine similarity và chọn top.
+
 ## Dự đoán preference của user đối với phim từ bảng rating của mỗi user với một số phim
 
 Mình sẽ dùng một kĩ thuật gọi là SVD (Single Value Decomposition), với metric đánh giá là Root Mean Square Error (RMSE). Giá trị của RMSE càng thấp gần về 0 thì performance càng tốt.
+
+Chia data thành 2 tập với tỉ lệ 7:3. Tuy nhiên để có thể predict được cho mọi user, ở tập train mình phải lấy ra ít nhất một row cho mỗi user_id trước, rồi lấy sample sau, cuối cùng sẽ loại bỏ duplicate trong tập train. Sau đó lấy tập test là phần còn lại của data
+
+Đánh giá thử tập train, có độ lỗi khoảng 1.2475, còn tập test thì tầm 1.187, những giá trị khá nhỏ đủ để hi vọng model dự đoán tốt.
