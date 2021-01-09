@@ -54,7 +54,7 @@ Task predict đầu tiên sẽ phù hợp nếu chúng ta không biết user là
 
 2 task predict sau, bằng sự kết hợp lẫn nhau chọn ra top phim chung, sẽ phù hợp để recommend từ sở thích của user.
 
-## Dự đoán phim dựa vào thuộc tính riêng
+## 1. Dự đoán phim dựa vào thuộc tính riêng
 
 Ở bước này, ta thường thấy rằng một bộ phim có sự tương đồng với bộ phim khác nằm ở thể loại, kịch bản, cốt truyện, và thậm chí là diễn viên, đạo diễn.
 
@@ -66,10 +66,18 @@ Mình sẽ dùng CountVectorizer để vectorize những thông tin về credit,
 
 Cuối cùng mình concat 2 ma trận vector lại với nhau, từ đó tính cosine similarity và chọn top.
 
-## Dự đoán preference của user đối với phim từ bảng rating của mỗi user với một số phim
+## 2. Dự đoán preference của user đối với phim từ bảng rating của mỗi user với một số phim
 
 Mình sẽ dùng một kĩ thuật gọi là SVD (Single Value Decomposition), với metric đánh giá là Root Mean Square Error (RMSE). Giá trị của RMSE càng thấp gần về 0 thì performance càng tốt.
 
 Chia data thành 2 tập với tỉ lệ 7:3. Tuy nhiên để có thể predict được cho mọi user, ở tập train mình phải lấy ra ít nhất một row cho mỗi user_id trước, rồi lấy sample sau, cuối cùng sẽ loại bỏ duplicate trong tập train. Sau đó lấy tập test là phần còn lại của data
 
 Đánh giá thử tập train, có độ lỗi khoảng 1.2475, còn tập test thì tầm 1.187, những giá trị khá nhỏ đủ để hi vọng model dự đoán tốt.
+
+## 3. Dự đoán những users gần "giống" với user đã chọn từ genre, từ đó chọn ra những bộ phim user này chưa xem nhưng những neighbor users đã xem rồi
+
+Đầu tiên, mỗi user sẽ có list phim đã xem qua dựa vào data rating.csv, mỗi bộ phim đều có genre nhất định, mình sẽ tổng hợp lại sum mỗi genre group by user dựa vào những bộ phim đó. Có 21 genre nên mỗi user tương ứng với vector 21 chiều. Từ đó ta có ma trận và tìm được nearest neighbor dựa vào cosine similarity.
+
+## Tổng hợp
+
+Ở 2 bài dự đoán phía sau, có thể kết hợp lại, từ việc dự đoán ra những bộ phim chưa xem cho user (3), sau đó dự đoán rating của user đó cho phim (2), sort lại list theo rating sẽ ra kết quả recommend cuối cùng (4).
