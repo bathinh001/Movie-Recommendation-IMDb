@@ -58,6 +58,7 @@ We’ll use text from fields like title, overview, and genres in `movie.csv`, pl
 Vectorization: TF-IDF is used for the overview field since its important keywords will get higher scores, increasing the uniqueness of each content. `CountVectorizer` is used for credit and genre information, as we want highly recurring keywords to signify correlation.
 
 Prediction: By concatenating the two vector matrices and calculating cosine similarity, we can identify top similar movies.
+
 ![image](https://github.com/user-attachments/assets/0cc23d8d-23ee-48de-893b-b70247818c52)
 
 ## 2. Predicting User Preferences for Movies Using Ratings Data
