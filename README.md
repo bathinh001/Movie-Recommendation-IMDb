@@ -36,7 +36,7 @@ Folder: [main](https://github.com/bathinh001/1712168/tree/main/main).
 Implementation File: [EDA.ipynb](https://github.com/bathinh001/1712168/blob/main/main/EDA.ipynb).
 
 I will create visual analyses of movie duration, ratings, genre distribution, and top movies of all time.
-
+![image](https://github.com/user-attachments/assets/a33e8168-ca4b-4097-a9a5-c744e2d6446a)
 # Main
 Folder: [main](https://github.com/bathinh001/1712168/tree/main/main).
 
